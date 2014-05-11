@@ -1,0 +1,308 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="JobDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="IDCompany" />
+    </Key>
+    <Property Name="IDCompany" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="200" />
+    <Property Name="CompanyInfo" Type="nvarchar(max)" />
+    <Property Name="ImageLink" Type="nvarchar" MaxLength="2500" />
+  </EntityType>
+  <EntityType Name="CompanySynonym">
+    <Key>
+      <PropertyRef Name="IDCompanySyn" />
+    </Key>
+    <Property Name="IDCompanySyn" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="IDCompany" Type="nvarchar" MaxLength="10" />
+    <Property Name="IDProcessState" Type="nvarchar" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="Job">
+    <Key>
+      <PropertyRef Name="JobID" />
+    </Key>
+    <Property Name="JobID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JobName" Type="nvarchar(max)" />
+    <Property Name="Salary" Type="nvarchar(max)" />
+    <Property Name="Benefit" Type="nvarchar(max)" />
+    <Property Name="JobLanguage" Type="nvarchar(max)" />
+    <Property Name="DueDate" Type="datetime" />
+    <Property Name="PostDate" Type="datetime" />
+    <Property Name="JobDescription" Type="nvarchar(max)" />
+    <Property Name="Requirement" Type="nvarchar(max)" />
+    <Property Name="IDCompany" Type="nvarchar" MaxLength="10" />
+    <Property Name="Location" Type="nvarchar(max)" />
+    <Property Name="IDJobUrl" Type="nvarchar" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="JobTag">
+    <Key>
+      <PropertyRef Name="JTagID" />
+    </Key>
+    <Property Name="JTagID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TagID" Type="nvarchar" MaxLength="50" />
+    <Property Name="JobID" Type="int" />
+  </EntityType>
+  <EntityType Name="JobTemp">
+    <Key>
+      <PropertyRef Name="JobTempID" />
+    </Key>
+    <Property Name="JobTempID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IDJobUrl" Type="nvarchar" MaxLength="15" />
+    <Property Name="JobName" Type="nvarchar(max)" />
+    <Property Name="Salary" Type="nvarchar(max)" />
+    <Property Name="Benefit" Type="nvarchar(max)" />
+    <Property Name="JobLanguage" Type="nvarchar(max)" />
+    <Property Name="DueDate" Type="datetime" />
+    <Property Name="PostDate" Type="datetime" />
+    <Property Name="JobDescription" Type="nvarchar(max)" />
+    <Property Name="Requirement" Type="nvarchar(max)" />
+    <Property Name="IDCompany" Type="nvarchar" MaxLength="10" />
+    <Property Name="Location" Type="nvarchar(max)" />
+    <Property Name="IDProcessState" Type="nvarchar" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="JobUrl">
+    <Key>
+      <PropertyRef Name="IDJobUrl" />
+    </Key>
+    <Property Name="IDJobUrl" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="JobUrlName" Type="nvarchar(max)" />
+    <Property Name="IDProcessState" Type="nvarchar" MaxLength="15" />
+    <Property Name="TimeGet" Type="nvarchar" MaxLength="25" />
+    <Property Name="IDJUSource" Type="nvarchar" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="JobUrlSource">
+    <Key>
+      <PropertyRef Name="IDJUSource" />
+    </Key>
+    <Property Name="IDJUSource" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="JUSourceName" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="ProcessState">
+    <Key>
+      <PropertyRef Name="IDProcessState" />
+    </Key>
+    <Property Name="IDProcessState" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="ProcessStateName" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Tag">
+    <Key>
+      <PropertyRef Name="TagID" />
+    </Key>
+    <Property Name="TagID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="NameTag" Type="nvarchar" MaxLength="50" />
+    <Property Name="TagParrentID" Type="nvarchar" MaxLength="50" />
+    <Property Name="TagTypeID" Type="nvarchar" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="TagType">
+    <Key>
+      <PropertyRef Name="TagTypeID" />
+    </Key>
+    <Property Name="TagTypeID" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="TagTypeName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_CompSyn_Comp">
+    <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+    <End Role="CompanySynonym" Type="Self.CompanySynonym" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="IDCompany" />
+      </Principal>
+      <Dependent Role="CompanySynonym">
+        <PropertyRef Name="IDCompany" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Job_Comp">
+    <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+    <End Role="Job" Type="Self.Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="IDCompany" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="IDCompany" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Job_JobUrl">
+    <End Role="JobUrl" Type="Self.JobUrl" Multiplicity="0..1" />
+    <End Role="Job" Type="Self.Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobUrl">
+        <PropertyRef Name="IDJobUrl" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="IDJobUrl" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JobTemp_Comp">
+    <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+    <End Role="JobTemp" Type="Self.JobTemp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="IDCompany" />
+      </Principal>
+      <Dependent Role="JobTemp">
+        <PropertyRef Name="IDCompany" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JobTemp_JobUrl">
+    <End Role="JobUrl" Type="Self.JobUrl" Multiplicity="0..1" />
+    <End Role="JobTemp" Type="Self.JobTemp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobUrl">
+        <PropertyRef Name="IDJobUrl" />
+      </Principal>
+      <Dependent Role="JobTemp">
+        <PropertyRef Name="IDJobUrl" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JobTemp_ProState">
+    <End Role="ProcessState" Type="Self.ProcessState" Multiplicity="0..1" />
+    <End Role="JobTemp" Type="Self.JobTemp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProcessState">
+        <PropertyRef Name="IDProcessState" />
+      </Principal>
+      <Dependent Role="JobTemp">
+        <PropertyRef Name="IDProcessState" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JobUrl_JUSource">
+    <End Role="JobUrlSource" Type="Self.JobUrlSource" Multiplicity="0..1" />
+    <End Role="JobUrl" Type="Self.JobUrl" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobUrlSource">
+        <PropertyRef Name="IDJUSource" />
+      </Principal>
+      <Dependent Role="JobUrl">
+        <PropertyRef Name="IDJUSource" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JobUrl_ProState">
+    <End Role="ProcessState" Type="Self.ProcessState" Multiplicity="0..1" />
+    <End Role="JobUrl" Type="Self.JobUrl" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProcessState">
+        <PropertyRef Name="IDProcessState" />
+      </Principal>
+      <Dependent Role="JobUrl">
+        <PropertyRef Name="IDProcessState" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JTag_Job">
+    <End Role="Job" Type="Self.Job" Multiplicity="0..1" />
+    <End Role="JobTag" Type="Self.JobTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Job">
+        <PropertyRef Name="JobID" />
+      </Principal>
+      <Dependent Role="JobTag">
+        <PropertyRef Name="JobID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JTag_Tag">
+    <End Role="Tag" Type="Self.Tag" Multiplicity="0..1" />
+    <End Role="JobTag" Type="Self.JobTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tag">
+        <PropertyRef Name="TagID" />
+      </Principal>
+      <Dependent Role="JobTag">
+        <PropertyRef Name="TagID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tag_TagType">
+    <End Role="TagType" Type="Self.TagType" Multiplicity="0..1" />
+    <End Role="Tag" Type="Self.Tag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TagType">
+        <PropertyRef Name="TagTypeID" />
+      </Principal>
+      <Dependent Role="Tag">
+        <PropertyRef Name="TagTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tag1_Tag2">
+    <End Role="Tag" Type="Self.Tag" Multiplicity="0..1" />
+    <End Role="Tag1" Type="Self.Tag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tag">
+        <PropertyRef Name="TagID" />
+      </Principal>
+      <Dependent Role="Tag1">
+        <PropertyRef Name="TagParrentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="JobDatabaseModelStoreContainer">
+    <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CompanySynonym" EntityType="Self.CompanySynonym" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Job" EntityType="Self.Job" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobTag" EntityType="Self.JobTag" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobTemp" EntityType="Self.JobTemp" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobUrl" EntityType="Self.JobUrl" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobUrlSource" EntityType="Self.JobUrlSource" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProcessState" EntityType="Self.ProcessState" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TagType" EntityType="Self.TagType" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_CompSyn_Comp" Association="Self.FK_CompSyn_Comp">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="CompanySynonym" EntitySet="CompanySynonym" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Job_Comp" Association="Self.FK_Job_Comp">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="Job" EntitySet="Job" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Job_JobUrl" Association="Self.FK_Job_JobUrl">
+      <End Role="JobUrl" EntitySet="JobUrl" />
+      <End Role="Job" EntitySet="Job" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JobTemp_Comp" Association="Self.FK_JobTemp_Comp">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="JobTemp" EntitySet="JobTemp" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JobTemp_JobUrl" Association="Self.FK_JobTemp_JobUrl">
+      <End Role="JobUrl" EntitySet="JobUrl" />
+      <End Role="JobTemp" EntitySet="JobTemp" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JobTemp_ProState" Association="Self.FK_JobTemp_ProState">
+      <End Role="ProcessState" EntitySet="ProcessState" />
+      <End Role="JobTemp" EntitySet="JobTemp" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JobUrl_JUSource" Association="Self.FK_JobUrl_JUSource">
+      <End Role="JobUrlSource" EntitySet="JobUrlSource" />
+      <End Role="JobUrl" EntitySet="JobUrl" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JobUrl_ProState" Association="Self.FK_JobUrl_ProState">
+      <End Role="ProcessState" EntitySet="ProcessState" />
+      <End Role="JobUrl" EntitySet="JobUrl" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JTag_Job" Association="Self.FK_JTag_Job">
+      <End Role="Job" EntitySet="Job" />
+      <End Role="JobTag" EntitySet="JobTag" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JTag_Tag" Association="Self.FK_JTag_Tag">
+      <End Role="Tag" EntitySet="Tag" />
+      <End Role="JobTag" EntitySet="JobTag" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tag_TagType" Association="Self.FK_Tag_TagType">
+      <End Role="TagType" EntitySet="TagType" />
+      <End Role="Tag" EntitySet="Tag" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tag1_Tag2" Association="Self.FK_Tag1_Tag2">
+      <End Role="Tag" EntitySet="Tag" />
+      <End Role="Tag1" EntitySet="Tag" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

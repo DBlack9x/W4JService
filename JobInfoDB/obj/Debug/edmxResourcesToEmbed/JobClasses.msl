@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="JobDatabaseModelStoreContainer" CdmEntityContainer="JobDatabaseEntities">
+    <EntitySetMapping Name="Companies">
+      <EntityTypeMapping TypeName="JobDatabaseModel.Company">
+        <MappingFragment StoreEntitySet="Company">
+          <ScalarProperty Name="IDCompany" ColumnName="IDCompany" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CompanyInfo" ColumnName="CompanyInfo" />
+          <ScalarProperty Name="ImageLink" ColumnName="ImageLink" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CompanySynonyms">
+      <EntityTypeMapping TypeName="JobDatabaseModel.CompanySynonym">
+        <MappingFragment StoreEntitySet="CompanySynonym">
+          <ScalarProperty Name="IDCompanySyn" ColumnName="IDCompanySyn" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="IDCompany" ColumnName="IDCompany" />
+          <ScalarProperty Name="IDProcessState" ColumnName="IDProcessState" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Jobs">
+      <EntityTypeMapping TypeName="JobDatabaseModel.Job">
+        <MappingFragment StoreEntitySet="Job">
+          <ScalarProperty Name="JobID" ColumnName="JobID" />
+          <ScalarProperty Name="JobName" ColumnName="JobName" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="Benefit" ColumnName="Benefit" />
+          <ScalarProperty Name="JobLanguage" ColumnName="JobLanguage" />
+          <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+          <ScalarProperty Name="PostDate" ColumnName="PostDate" />
+          <ScalarProperty Name="JobDescription" ColumnName="JobDescription" />
+          <ScalarProperty Name="Requirement" ColumnName="Requirement" />
+          <ScalarProperty Name="IDCompany" ColumnName="IDCompany" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="IDJobUrl" ColumnName="IDJobUrl" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobTags">
+      <EntityTypeMapping TypeName="JobDatabaseModel.JobTag">
+        <MappingFragment StoreEntitySet="JobTag">
+          <ScalarProperty Name="JTagID" ColumnName="JTagID" />
+          <ScalarProperty Name="TagID" ColumnName="TagID" />
+          <ScalarProperty Name="JobID" ColumnName="JobID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobTemps">
+      <EntityTypeMapping TypeName="JobDatabaseModel.JobTemp">
+        <MappingFragment StoreEntitySet="JobTemp">
+          <ScalarProperty Name="JobTempID" ColumnName="JobTempID" />
+          <ScalarProperty Name="IDJobUrl" ColumnName="IDJobUrl" />
+          <ScalarProperty Name="JobName" ColumnName="JobName" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="Benefit" ColumnName="Benefit" />
+          <ScalarProperty Name="JobLanguage" ColumnName="JobLanguage" />
+          <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+          <ScalarProperty Name="PostDate" ColumnName="PostDate" />
+          <ScalarProperty Name="JobDescription" ColumnName="JobDescription" />
+          <ScalarProperty Name="Requirement" ColumnName="Requirement" />
+          <ScalarProperty Name="IDCompany" ColumnName="IDCompany" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="IDProcessState" ColumnName="IDProcessState" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobUrls">
+      <EntityTypeMapping TypeName="JobDatabaseModel.JobUrl">
+        <MappingFragment StoreEntitySet="JobUrl">
+          <ScalarProperty Name="IDJobUrl" ColumnName="IDJobUrl" />
+          <ScalarProperty Name="JobUrlName" ColumnName="JobUrlName" />
+          <ScalarProperty Name="IDProcessState" ColumnName="IDProcessState" />
+          <ScalarProperty Name="TimeGet" ColumnName="TimeGet" />
+          <ScalarProperty Name="IDJUSource" ColumnName="IDJUSource" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobUrlSources">
+      <EntityTypeMapping TypeName="JobDatabaseModel.JobUrlSource">
+        <MappingFragment StoreEntitySet="JobUrlSource">
+          <ScalarProperty Name="IDJUSource" ColumnName="IDJUSource" />
+          <ScalarProperty Name="JUSourceName" ColumnName="JUSourceName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProcessStates">
+      <EntityTypeMapping TypeName="JobDatabaseModel.ProcessState">
+        <MappingFragment StoreEntitySet="ProcessState">
+          <ScalarProperty Name="IDProcessState" ColumnName="IDProcessState" />
+          <ScalarProperty Name="ProcessStateName" ColumnName="ProcessStateName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tags">
+      <EntityTypeMapping TypeName="JobDatabaseModel.Tag">
+        <MappingFragment StoreEntitySet="Tag">
+          <ScalarProperty Name="TagID" ColumnName="TagID" />
+          <ScalarProperty Name="NameTag" ColumnName="NameTag" />
+          <ScalarProperty Name="TagParrentID" ColumnName="TagParrentID" />
+          <ScalarProperty Name="TagTypeID" ColumnName="TagTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TagTypes">
+      <EntityTypeMapping TypeName="JobDatabaseModel.TagType">
+        <MappingFragment StoreEntitySet="TagType">
+          <ScalarProperty Name="TagTypeID" ColumnName="TagTypeID" />
+          <ScalarProperty Name="TagTypeName" ColumnName="TagTypeName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
